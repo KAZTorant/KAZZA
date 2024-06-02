@@ -1,4 +1,5 @@
 @echo off
+setlocal enabledelayedexpansion
 
 REM Function to check if a directory exists
 :checkDirExists
@@ -8,6 +9,7 @@ if exist %1 (
 ) else (
     set cloneRequired=true
 )
+goto :eof
 
 REM Function to check the last command and exit if it failed
 :checkError
@@ -15,10 +17,11 @@ if %errorlevel% neq 0 (
     echo Error occurred. Exiting script.
     exit /b %errorlevel%
 )
+goto :eof
 
 REM Clone the BACKEND repository
 call :checkDirExists managements
-if %cloneRequired%==true (
+if "!cloneRequired!"=="true" (
     echo Cloning the BACKEND repository...
     git clone https://github.com/KAZTorant/managements.git
     timeout /t 1
@@ -57,7 +60,7 @@ call :checkError
 
 REM Clone the FRONTEND repository
 call :checkDirExists frontend
-if %cloneRequired%==true (
+if "!cloneRequired!"=="true" (
     echo Cloning the FRONTEND repository...
     git clone https://github.com/KAZTorant/frontend.git
     timeout /t 1
@@ -84,7 +87,7 @@ call :checkError
 
 REM Clone the PRINTER repository
 call :checkDirExists printer-v2
-if %cloneRequired%==true (
+if "!cloneRequired!"=="true" (
     echo Cloning the PRINTER repository...
     git clone https://github.com/KAZTorant/printer-v2.git
     timeout /t 3
