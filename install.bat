@@ -32,11 +32,8 @@ REM Navigate to FRONTEND repository and install npm dependencies
 echo Navigating into the FRONTEND repository folder...
 cd frontend
 
-
 echo Installing npm dependencies...
-npm install
-
-timeout /t 5
+cmd /c npm install && timeout /t 5
 
 echo Navigating back to the main folder...
 cd ..
@@ -50,9 +47,7 @@ cd printer-v2
 timeout /t 5
 
 echo Installing npm dependencies...
-npm install
-
-timeout /t 5
+cmd /c npm install && timeout /t 5
 
 echo Navigating back to the main folder...
 cd ..
