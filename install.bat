@@ -27,11 +27,6 @@ pip install -r requirements.txt
 
 timeout /t 5
 
-echo Deactivating the virtual environment...
-deactivate
-
-timeout /t 5
-
 echo Navigating back to the main folder...
 cd ..
 
