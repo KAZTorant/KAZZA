@@ -6,8 +6,6 @@ REM Function to report error and continue
     echo Error occurred: !errormessage!
     set errorcode=%ERRORLEVEL%
 
-REM Navigate to the main folder
-cd ..
 
 REM Backend commands
 cd managements
