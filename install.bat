@@ -19,96 +19,54 @@ if %errorlevel% neq 0 (
 )
 goto :eof
 
-REM Clone the BACKEND repository
-call :checkDirExists managements
+REM Clone and set up a repository
+:setupRepo
+call :checkDirExists %1
 if "!cloneRequired!"=="true" (
-    echo Cloning the BACKEND repository...
-    git clone https://github.com/KAZTorant/managements.git
+    echo Cloning the %2 repository...
+    git clone %3
     timeout /t 1
     call :checkError
 )
 
-REM Navigate into the cloned repository folder
-echo Navigating into the BACKEND repository folder...
-cd managements
+echo Navigating into the %2 repository folder...
+cd %1
 timeout /t 1
 call :checkError
 
-REM Create a virtual environment
-echo Creating a virtual environment...
-python -m venv venv
+echo %4
+%5
 timeout /t 1
 call :checkError
 
-REM Activate the virtual environment
-echo Activating the virtual environment...
+echo Navigating back to the main folder...
+cd ..
+timeout /t 1
+call :checkError
+
+goto :eof
+
+REM Start of the script
+
+timeout /t 1
+
+REM Setup BACKEND repository
+call :setupRepo managements "BACKEND" "https://github.com/KAZTorant/managements.git" "Creating a virtual environment..." "python -m venv venv"
 call venv\Scripts\activate
 timeout /t 1
 call :checkError
-
-REM Install requirements
-echo Installing Python dependencies...
 pip install -r requirements.txt
 timeout /t 1
 call :checkError
+deactivate
 
-REM Going back to home
-echo Navigating back to the main folder...
-cd ..
-timeout /t 1
-call :checkError
-
-REM Clone the FRONTEND repository
-call :checkDirExists frontend
-if "!cloneRequired!"=="true" (
-    echo Cloning the FRONTEND repository...
-    git clone https://github.com/KAZTorant/frontend.git
-    timeout /t 1
-    call :checkError
-)
-
-REM Navigate into the cloned repository folder
-echo Navigating into the FRONTEND repository folder...
-cd frontend
-timeout /t 1
-call :checkError
-
-REM Install npm dependencies
-echo Installing npm dependencies for FRONTEND...
-npm install
+REM Setup FRONTEND repository
+call :setupRepo frontend "FRONTEND" "https://github.com/KAZTorant/frontend.git" "Installing npm dependencies..." "npm install"
 timeout /t 3
 call :checkError
 
-REM Going back to home
-echo Navigating back to the main folder...
-cd ..
-timeout /t 3
-call :checkError
-
-REM Clone the PRINTER repository
-call :checkDirExists printer-v2
-if "!cloneRequired!"=="true" (
-    echo Cloning the PRINTER repository...
-    git clone https://github.com/KAZTorant/printer-v2.git
-    timeout /t 3
-    call :checkError
-)
-
-REM Navigate into the cloned repository folder
-echo Navigating into the PRINTER repository folder...
-cd printer-v2
-timeout /t 3
-call :checkError
-
-REM Install npm dependencies
-echo Installing npm dependencies for PRINTER...
-npm install
-timeout /t 3
-call :checkError
-
-REM Going back to home
-echo Navigating back to the main folder...
-cd ..
+REM Setup PRINTER repository
+call :setupRepo printer-v2 "PRINTER" "https://github.com/KAZTorant/printer-v2.git" "Installing npm dependencies..." "npm install"
 timeout /t 3
 call :checkError
 
