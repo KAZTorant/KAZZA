@@ -25,8 +25,6 @@ call venv\Scripts\activate
 echo Installing Python dependencies...
 pip install -r requirements.txt
 
-timeout /t 5
-
 echo Navigating back to the main folder...
 cd ..
 
@@ -34,7 +32,6 @@ REM Navigate to FRONTEND repository and install npm dependencies
 echo Navigating into the FRONTEND repository folder...
 cd frontend
 
-timeout /t 5
 
 echo Installing npm dependencies...
 npm install
