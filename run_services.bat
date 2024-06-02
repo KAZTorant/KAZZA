@@ -27,4 +27,10 @@ start "PRINTER" powershell -windowstyle minimized -command "cd /d %CD%; npm star
 REM Navigate back to the main folder
 cd ..
 
+REM Wait for a few seconds to ensure services are up
+timeout /t 10 /nobreak
+
+REM Open the front-end URL in the default web browser
+start http://localhost:8080
+
 exit /b 0
