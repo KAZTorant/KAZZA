@@ -25,8 +25,12 @@ call venv\Scripts\activate
 echo Installing Python dependencies...
 pip install -r requirements.txt
 
+timeout /t 5
+
 echo Deactivating the virtual environment...
 deactivate
+
+timeout /t 5
 
 echo Navigating back to the main folder...
 cd ..
@@ -35,18 +39,28 @@ REM Navigate to FRONTEND repository and install npm dependencies
 echo Navigating into the FRONTEND repository folder...
 cd frontend
 
+timeout /t 5
+
 echo Installing npm dependencies...
 npm install
 
+timeout /t 5
+
 echo Navigating back to the main folder...
 cd ..
+
+timeout /t 5
 
 REM Navigate to PRINTER repository and install npm dependencies
 echo Navigating into the PRINTER repository folder...
 cd printer-v2
 
+timeout /t 5
+
 echo Installing npm dependencies...
 npm install
+
+timeout /t 5
 
 echo Navigating back to the main folder...
 cd ..
