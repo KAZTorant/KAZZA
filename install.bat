@@ -1,5 +1,14 @@
 @echo off
 
+REM Function to check if a directory exists
+:checkDirExists
+if exist %1 (
+    echo Directory %1 already exists. Skipping clone.
+    set cloneRequired=false
+) else (
+    set cloneRequired=true
+)
+
 REM Function to check the last command and exit if it failed
 :checkError
 if %errorlevel% neq 0 (
@@ -8,10 +17,13 @@ if %errorlevel% neq 0 (
 )
 
 REM Clone the BACKEND repository
-echo Cloning the BACKEND repository...
-git clone https://github.com/KAZTorant/managements.git
-timeout /t 1
-call :checkError
+call :checkDirExists managements
+if %cloneRequired%==true (
+    echo Cloning the BACKEND repository...
+    git clone https://github.com/KAZTorant/managements.git
+    timeout /t 1
+    call :checkError
+)
 
 REM Navigate into the cloned repository folder
 echo Navigating into the BACKEND repository folder...
@@ -44,10 +56,13 @@ timeout /t 1
 call :checkError
 
 REM Clone the FRONTEND repository
-echo Cloning the FRONTEND repository...
-git clone https://github.com/KAZTorant/frontend.git
-timeout /t 1
-call :checkError
+call :checkDirExists frontend
+if %cloneRequired%==true (
+    echo Cloning the FRONTEND repository...
+    git clone https://github.com/KAZTorant/frontend.git
+    timeout /t 1
+    call :checkError
+)
 
 REM Navigate into the cloned repository folder
 echo Navigating into the FRONTEND repository folder...
@@ -68,10 +83,13 @@ timeout /t 3
 call :checkError
 
 REM Clone the PRINTER repository
-echo Cloning the PRINTER repository...
-git clone https://github.com/KAZTorant/printer-v2.git
-timeout /t 3
-call :checkError
+call :checkDirExists printer-v2
+if %cloneRequired%==true (
+    echo Cloning the PRINTER repository...
+    git clone https://github.com/KAZTorant/printer-v2.git
+    timeout /t 3
+    call :checkError
+)
 
 REM Navigate into the cloned repository folder
 echo Navigating into the PRINTER repository folder...
