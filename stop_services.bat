@@ -1,0 +1,9 @@
+@echo off
+echo Stopping backend process...
+taskkill /F /IM python.exe /T
+echo Stopping frontend process...
+taskkill /F /IM node.exe /T
+echo Stopping printer service process...
+taskkill /F /IM node.exe /T
+echo All services stopped.
+exit /b 0
