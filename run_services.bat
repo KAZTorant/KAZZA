@@ -4,7 +4,9 @@ REM Backend commands
 cd managements
 
 REM Run the backend server in a minimized PowerShell window
-start "DJANGO" powershell -windowstyle minimized -command "cd /d %CD%; .\venv\Scripts\activate; $env:DB_DEFAULT='postgres'; python manage.py runserver 0.0.0.0:8000"
+@REM $env:DB_DEFAULT='postgres';
+
+start "DJANGO" powershell -windowstyle minimized -command "cd /d %CD%; .\venv\Scripts\activate;  python manage.py runserver 0.0.0.0:8000"
 
 REM Navigate back to the main folder
 cd ..
