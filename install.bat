@@ -15,6 +15,7 @@ REM Function to check the last command and exit if it failed
 :checkError
 if %errorlevel% neq 0 (
     echo Error occurred. Exiting script.
+    pause
     exit /b %errorlevel%
 )
 goto :eof
@@ -52,13 +53,18 @@ timeout /t 1
 
 REM Setup BACKEND repository
 call :setupRepo managements "BACKEND" "https://github.com/KAZTorant/managements.git" "Creating a virtual environment..." "python -m venv venv"
-call venv\Scripts\activate
+echo Activating the virtual environment...
+call managements\venv\Scripts\activate
 timeout /t 1
 call :checkError
-pip install -r requirements.txt
+echo Installing Python dependencies...
+pip install -r managements\requirements.txt
 timeout /t 1
 call :checkError
+echo Deactivating the virtual environment...
 deactivate
+timeout /t 1
+call :checkError
 
 REM Setup FRONTEND repository
 call :setupRepo frontend "FRONTEND" "https://github.com/KAZTorant/frontend.git" "Installing npm dependencies..." "npm install"
@@ -71,6 +77,6 @@ timeout /t 3
 call :checkError
 
 REM Close the terminal
-echo Installation process completed. Closing the terminal...
-timeout /t 3
+echo Installation process completed. Press any key to close the terminal...
+pause
 exit /b 0
